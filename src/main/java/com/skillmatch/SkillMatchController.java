@@ -21,18 +21,25 @@ public class SkillMatchController {
     public List<String> getAllSkills() {
         return service.getAllSkills();
     }
-    
+
     @GetMapping("/recommendations")
     public List<String> getRecommendedJobs(
             @RequestParam String email) {
 
         return service.getRecommendedJobs(email);
     }
-    
+
     @GetMapping("/similar-users")
     public List<String> getSimilarUsers(
             @RequestParam String email) {
 
         return service.getSimilarUsers(email);
+    }
+
+    @GetMapping("/job-match-scores")
+    public List<String> getJobMatchScores(
+            @RequestParam String email) {
+
+        return service.getJobMatchScores(email);
     }
 }

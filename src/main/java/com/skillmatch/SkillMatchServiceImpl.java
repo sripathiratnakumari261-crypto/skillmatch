@@ -17,14 +17,19 @@ public class SkillMatchServiceImpl implements SkillMatchService {
     public List<String> getAllSkills() {
         return repository.getAllSkills();
     }
-    
+
     @Override
     public List<String> getRecommendedJobs(String email) {
         return repository.getRecommendedJobs(email);
     }
-    
+
     @Override
     public List<String> getSimilarUsers(String email) {
         return repository.getSimilarUsers(email);
+    }
+
+    @Override
+    public List<String> getJobMatchScores(String email) {
+        return repository.getJobMatchScores(email);
     }
 }

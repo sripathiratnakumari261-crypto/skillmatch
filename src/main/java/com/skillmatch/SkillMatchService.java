@@ -9,4 +9,6 @@ public interface SkillMatchService {
     List<String> getRecommendedJobs(String email);
 
     List<String> getSimilarUsers(String email);
+
+    List<String> getJobMatchScores(String email);
 }

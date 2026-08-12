@@ -4,10 +4,13 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f5f7fb;
     color: #222;
+    line-height: 1.6;
 }
+
+/* Header */
 
 header {
     background: #1f2937;
@@ -28,14 +31,24 @@ header h1 {
 
 header p {
     margin-top: 8px;
+    color: #d1d5db;
 }
+
+/* Search Section */
 
 .search-section {
     background: white;
     margin-top: 30px;
     padding: 30px;
     border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
+
+.search-section h2 {
+    margin-top: 0;
+}
+
+/* Search Box */
 
 .search-box {
     display: flex;
@@ -49,7 +62,14 @@ input {
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 16px;
+    outline: none;
 }
+
+input:focus {
+    border-color: #2563eb;
+}
+
+/* Button */
 
 button {
     padding: 12px 20px;
@@ -65,37 +85,75 @@ button:hover {
     background: #1d4ed8;
 }
 
+/* Results */
+
 .results {
     margin-top: 25px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    align-items: start;
 }
+
+/* Result Cards */
 
 .result-card {
     background: white;
     padding: 25px;
     border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .result-card h2 {
     margin-top: 0;
+    margin-bottom: 15px;
 }
+
+/* Result Items */
 
 .result-item {
     padding: 12px;
     margin-top: 10px;
     background: #f3f4f6;
     border-radius: 6px;
+    color: #374151;
 }
+
+/* Recommended Jobs */
+
+#jobs .result-item {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+}
+
+/* Job Match Scores */
+
+#jobScores .result-item {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+}
+
+/* Similar Users */
+
+#users .result-item {
+    background: #f5f3ff;
+    border-left: 4px solid #7c3aed;
+}
+
+/* Error */
 
 .error {
     color: #dc2626;
+    font-weight: 500;
 }
+
+/* Hidden */
 
 .hidden {
     display: none;
 }
+
+/* Footer */
 
 footer {
     text-align: center;
@@ -104,14 +162,19 @@ footer {
     color: #666;
 }
 
+/* Mobile */
+
 @media (max-width: 700px) {
 
     .search-box {
         flex-direction: column;
     }
 
+    button {
+        width: 100%;
+    }
+
     .results {
         grid-template-columns: 1fr;
     }
-
 }

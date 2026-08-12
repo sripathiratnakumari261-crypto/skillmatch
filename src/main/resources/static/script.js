@@ -1,6 +1,7 @@
 async function findMatches() {
 
-    const email = document.getElementById("email").value.trim();
+    const email =
+        document.getElementById("email").value.trim();
 
     const errorMessage =
         document.getElementById("errorMessage");
@@ -14,10 +15,15 @@ async function findMatches() {
     const users =
         document.getElementById("users");
 
+    const jobScores =
+        document.getElementById("jobScores");
 
+
+    // Clear previous error
     errorMessage.textContent = "";
 
 
+    // Validate email
     if (!email) {
 
         errorMessage.textContent =
@@ -27,26 +33,45 @@ async function findMatches() {
     }
 
 
+    // Show results section
     results.classList.remove("hidden");
 
+
+    // Loading states
     jobs.innerHTML = "Loading...";
     users.innerHTML = "Loading...";
+    jobScores.innerHTML = "Loading...";
 
 
     try {
 
+        // 1. Get recommended jobs
         const jobsResponse =
             await fetch(
                 `/api/recommendations?email=${encodeURIComponent(email)}`
             );
 
+
+        // 2. Get similar users
         const usersResponse =
             await fetch(
                 `/api/similar-users?email=${encodeURIComponent(email)}`
             );
 
 
-        if (!jobsResponse.ok || !usersResponse.ok) {
+        // 3. Get job match scores
+        const scoresResponse =
+            await fetch(
+                `/api/job-match-scores?email=${encodeURIComponent(email)}`
+            );
+
+
+        // Check all API responses
+        if (
+            !jobsResponse.ok ||
+            !usersResponse.ok ||
+            !scoresResponse.ok
+        ) {
 
             throw new Error(
                 "Unable to load recommendations."
@@ -54,19 +79,32 @@ async function findMatches() {
         }
 
 
+        // Convert responses to JSON
         const recommendedJobs =
             await jobsResponse.json();
 
         const similarUsers =
             await usersResponse.json();
 
+        const jobScoresData =
+            await scoresResponse.json();
 
+
+        // Display results
         displayJobs(recommendedJobs);
 
         displayUsers(similarUsers);
 
+        displayJobScores(jobScoresData);
+
 
     } catch (error) {
+
+        console.error(
+            "Error loading SkillMatch data:",
+            error
+        );
+
 
         jobs.innerHTML =
             "Unable to load job recommendations.";
@@ -74,13 +112,19 @@ async function findMatches() {
         users.innerHTML =
             "Unable to load similar users.";
 
+        jobScores.innerHTML =
+            "Unable to load job match scores.";
+
+
         errorMessage.textContent =
             "Something went wrong. Please try again.";
-
-        console.error(error);
     }
 }
 
+
+/* =========================================
+   DISPLAY RECOMMENDED JOBS
+   ========================================= */
 
 function displayJobs(jobs) {
 
@@ -105,14 +149,20 @@ function displayJobs(jobs) {
         const item =
             document.createElement("div");
 
-        item.className = "result-item";
+        item.className =
+            "result-item";
 
-        item.textContent = job;
+        item.textContent =
+            job;
 
         container.appendChild(item);
     });
 }
 
+
+/* =========================================
+   DISPLAY SIMILAR USERS
+   ========================================= */
 
 function displayUsers(users) {
 
@@ -137,9 +187,59 @@ function displayUsers(users) {
         const item =
             document.createElement("div");
 
-        item.className = "result-item";
+        item.className =
+            "result-item";
 
-        item.textContent = user;
+        item.textContent =
+            user;
+
+        container.appendChild(item);
+    });
+}
+
+
+/* =========================================
+   DISPLAY JOB MATCH SCORES
+   ========================================= */
+
+function displayJobScores(scores) {
+
+    const container =
+        document.getElementById("jobScores");
+
+
+    if (!container) {
+
+        console.error(
+            "jobScores element not found in index.html"
+        );
+
+        return;
+    }
+
+
+    if (!scores || scores.length === 0) {
+
+        container.innerHTML =
+            '<div class="result-item">No job match scores found.</div>';
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    scores.forEach(score => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "result-item";
+
+        item.textContent =
+            score;
 
         container.appendChild(item);
     });
