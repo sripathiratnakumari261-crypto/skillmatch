@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillMatch</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>SkillMatch</h1>
+            <p>Find jobs based on your skills</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="search-section">
+
+            <h2>Find Your Job Matches</h2>
+
+            <p>
+                Enter your registered email to discover jobs
+                matching your skills.
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    value="ratna@example.com"
+                >
+
+                <button onclick="findMatches()">
+                    Find Matches
+                </button>
+
+            </div>
+
+            <p id="errorMessage" class="error"></p>
+
+        </section>
+
+
+        <section id="results" class="results hidden">
+
+            <div class="result-card">
+
+                <h2>Recommended Jobs</h2>
+
+                <div id="jobs">
+                    Loading...
+                </div>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <h2>People With Similar Skills</h2>
+
+                <div id="users">
+                    Loading...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            SkillMatch — Graph-powered job recommendations
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
